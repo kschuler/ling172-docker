@@ -1,0 +1,32 @@
+version: '3.7'
+
+networks:
+  ling172:
+
+services:
+   jupyter:
+      image: jupyter/datascience-notebook:r-4.0.3
+      environment:
+        - JUPYTER_TOKEN=password
+        - JUPYTER_ENABLE_LAB=yes
+
+      volumes:
+        - .:/home/jovyan/work
+      ports:
+        - 8989:8888
+      container_name: jupyter
+      networks:
+        - ling172
+
+    rstudio:
+      image: "rocker/verse:4.0.4"
+      environment:
+        - USERID=rstudio
+        - PASSWORD=password
+      volumes:
+        - .:/home/rstudio/work
+      ports:
+        - 8787:8787
+      container_name: rstudio
+      networks:
+        - ling172
